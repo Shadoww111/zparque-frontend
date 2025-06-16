@@ -1,0 +1,144 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    controllerName="saida2.controller.SaidaDetails">
+    
+    <Page
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        title="{i18n>saidaDetalhesPageTitle}"
+        class="customBackgroundPage">
+        <content>
+            <VBox alignItems="Center" justifyContent="Center" width="100%" class="fadeIn">
+                <f:Card 
+                    width="600px"
+                    class="saidaDetalhesCard elevatedCard cardEntryAnimation sapUiMediumMargin">
+                    <f:header>
+                        <card:Header 
+                            title="{i18n>registroSaidaSucesso}" 
+                            iconSrc="sap-icon://accept"
+                            subtitle="{saidaModel>/dataHoraSaida}"/>
+                    </f:header>
+                    <f:content>
+                        <VBox class="sapUiMediumMargin" alignItems="Center" width="100%">
+                            <MessageStrip
+                                text="{i18n>detalhesSaidaSuccess}"
+                                type="Success"
+                                showIcon="true"
+                                class="saidaMessageStrip sapUiMediumMarginBottom"/>
+                                
+                            <form:SimpleForm 
+                                editable="false"
+                                layout="ResponsiveGridLayout" 
+                                class="detailsForm"
+                                labelSpanL="12"
+                                labelSpanM="12"
+                                adjustLabelSpan="false"
+                                emptySpanL="0"
+                                emptySpanM="0"
+                                columnsL="1"
+                                columnsM="1">
+                                <form:content>
+                                    <VBox  width="100%">
+                                        <Label text="{i18n>matriculaDetalhe}" class="clienteLabel" width="100%" />
+                                        <ObjectStatus
+                                            text="{saidaModel>/matricula}"
+                                            state="Information"
+                                            icon="sap-icon://car-rental"/>
+                                    </VBox>
+                                    
+                                    <VBox  width="100%">
+                                        <Label text="{i18n>tipoVeiculoDetalhe}" class="clienteLabel" width="100%" />
+                                        <ObjectStatus
+                                            text="{= ${saidaModel>/tipoVeiculo} ? ${saidaModel>/tipoVeiculo} : ${i18n>naoEspecificado}}"
+                                            state="Information"
+                                            icon="sap-icon://vehicle-repair"/>
+                                    </VBox>
+                                    
+                                    <VBox  width="100%">
+                                        <Label text="{i18n>dataHoraEntrada}" class="clienteLabel" width="100%" />
+                                        <Text text="{saidaModel>/dataEntrada}"/>
+                                    </VBox>
+                                    
+                                    <VBox  width="100%">
+                                        <Label text="{i18n>dataHoraSaida}" class="clienteLabel" width="100%" />
+                                        <Text text="{saidaModel>/dataSaida}"/>
+                                    </VBox>
+                                    
+                                    <VBox  width="100%">
+                                        <Label text="{i18n>duracaoEstacionamento}" class="clienteLabel" width="100%" />
+                                        <ObjectStatus
+                                            text="{= ${saidaModel>/duracaoHoras} + ' ' + ${i18n>horas}}"
+                                            state="Information"
+                                            icon="sap-icon://time-entry-request"/>
+                                    </VBox>
+                                    
+                                    <!-- Valor a pagar -->
+                                    <VBox  width="100%">
+                                        <Label text="{i18n>valorAPagar}" class="clienteLabel" width="100%" />
+                                        <ObjectStatus
+                                            text="{= ${saidaModel>/valorLiquido} + ' ' + ${saidaModel>/moeda}}"
+                                            state="Warning"
+                                            icon="sap-icon://money-bills"
+                                            class="valorAPagarStatus"/>
+                                    </VBox>
+                                    
+                                    <!-- Mostrar informação do cliente -->
+                                    <VBox  width="100%">
+                                        <Label text="{i18n>clienteLabel}" class="clienteLabel" width="100%" />
+                                        <ObjectStatus
+                                            text="{saidaModel>/cliente}"
+                                            state="{= ${saidaModel>/isClienteRegistrado} ? 'Success' : 'None'}"
+                                            icon="{= ${saidaModel>/isClienteRegistrado} ? 'sap-icon://customer' : 'sap-icon://person-placeholder'}"/>
+                                    </VBox>
+                                    
+                                    <!-- Mostrar nome do cliente apenas se for cliente registrado e tiver nome -->
+                                    <VBox  width="100%" visible="{= ${saidaModel>/isClienteRegistrado} &amp;&amp; ${saidaModel>/nomeCliente} !== ''}">
+                                        <Label text="{i18n>nomeClienteLabel}" class="clienteLabel" width="100%" />
+                                        <Text text="{saidaModel>/nomeCliente}"/>
+                                    </VBox>
+                                    
+                                    <!-- Mostrar desconto se aplicável -->
+                                    <VBox  width="100%" visible="{= ${saidaModel>/desconto} > 0}">
+                                        <Label text="{i18n>descontoAplicado}" class="clienteLabel" width="100%" />
+                                        <ObjectStatus
+                                            text="{= ${saidaModel>/desconto} + '%'}"
+                                            state="Success"
+                                            icon="sap-icon://loan"/>
+                                    </VBox>
+                                    
+                                    <!-- Mostrar valor bruto e valor do desconto se tiver desconto -->
+                                    <VBox  width="100%" visible="{= ${saidaModel>/desconto} > 0}">
+                                        <Label text="{i18n>valorBruto}" class="clienteLabel" width="100%" />
+                                        <Text text="{= ${saidaModel>/valorBruto} + ' ' + ${saidaModel>/moeda}}"/>
+                                    </VBox>
+                                    
+                                    <VBox  width="100%" visible="{= ${saidaModel>/desconto} > 0}">
+                                        <Label text="{i18n>valorDesconto}" class="clienteLabel" width="100%" />
+                                        <Text text="{= (${saidaModel>/valorBruto} - ${saidaModel>/valorLiquido}).toFixed(2) + ' ' + ${saidaModel>/moeda}}"/>
+                                    </VBox>
+                                </form:content>
+                            </form:SimpleForm>
+                            
+                            <HBox  width="100%" class="sapUiMediumMarginTop">
+                                <Button 
+                                    text="{i18n>novaSaidaButton}" 
+                                    type="Emphasized"
+                                    press="onNovaSaida"
+                                    icon="sap-icon://add"
+                                    class="novaSaidaButton actionButton sapUiMediumMarginEnd"/>
+                            </HBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </VBox>
+        </content>
+         <footer >
+            <core:Fragment fragmentName="saida2.view.fragments.DisponibilidadeFooter" type="XML" />
+        </footer>
+    </Page>
+</mvc:View>

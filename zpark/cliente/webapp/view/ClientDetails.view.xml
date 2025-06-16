@@ -1,0 +1,195 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.uxap"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    controllerName="cliente.controller.ClientDetails">
+    <u:ObjectPageLayout showTitleInHeaderContent="true" upperCaseAnchorBar="false" class="clientDetailsPage">
+        <u:headerTitle>
+            <u:ObjectPageDynamicHeaderTitle>
+                <u:expandedHeading>
+                    <HBox alignItems="End">
+                        <Button type="Back" press="onPressBack" class="sapUiTinyMarginEnd" />
+                        <Title text="{i18n>nifTitle}: {clienteModel>/Nif}" class="sapUiTinyMarginEnd clientTitle" />
+                    </HBox>
+                </u:expandedHeading>
+
+                <u:snappedHeading>
+                    <HBox alignItems="End">
+                        <Button type="Back" press="onPressBack" class="sapUiTinyMarginEnd" />
+                        <Title text="{i18n>nifTitle}: {clienteModel>/Nif}" class="sapUiTinyMarginEnd clientTitle" />
+                    </HBox>
+                </u:snappedHeading>
+
+                <u:actions>
+                    <Button type="Transparent" icon="sap-icon://refresh" press="onPressRefresh" text="{i18n>refreshButton}"/>
+                </u:actions>
+            </u:ObjectPageDynamicHeaderTitle>
+        </u:headerTitle>
+
+        <u:headerContent>
+            <FlexBox wrap="NoWrap" fitContainer="true" width="100%" class="clientDetailHeader">
+                <Avatar src="sap-icon://person-placeholder" displaySize="L" class="sapUiMediumMarginEnd sapUiSmallMarginBottom" displayShape="Square" />
+
+                <l:Grid defaultSpan="XL12 L12 M12 S12" class="sapUiSmallMargin" width="100%">
+                    <l:content>
+                        <!-- Primeira linha -->
+                        <HBox width="100%" class="sapUiSmallMarginBottom">
+                            <!-- Coluna 1 -->
+                            <VBox class="sapUiMediumMarginEnd clientInfoColumn">
+                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                    <Label text="{i18n>nameLabel}: " class="sapUiTinyMarginEnd" design="Bold" />
+                                    <Text text="{clienteModel>/Nome}" wrapping="false" />
+                                </HBox>
+                                
+                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                    <Label text="{i18n>emailLabel}: " class="sapUiTinyMarginEnd" design="Bold" />
+                                    <Link text="{clienteModel>/Email}" href="mailto:{clienteModel>/Email}" wrapping="false" textAlign="Begin" />
+                                </HBox>
+                            </VBox>
+                            
+                            <!-- Coluna 2 -->
+                            <VBox width="50%" class="sapUiMediumMarginBegin clientInfoColumn">
+                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                    <Label text="{i18n>phoneLabel}: " class="sapUiTinyMarginEnd" design="Bold" />
+                                    <Link text="{clienteModel>/Telefone}" href="tel:{clienteModel>/Telefone}" wrapping="false" />
+                                </HBox>
+                                
+                                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                    <Label text="{i18n>clientTypeLabel}: " class="sapUiTinyMarginEnd" design="Bold"/>
+                                    <ObjectStatus 
+                                        text="{clienteModel>/TipoClienteDesc}"
+                                        state="{= ${clienteModel>/TipoCliente} === 'P' ? 'Success' : 'Information' }" />
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </l:content>
+                </l:Grid>
+            </FlexBox>
+        </u:headerContent>
+
+        <u:sections>
+            <!-- Seção de Veículos -->
+            <u:ObjectPageSection title="{i18n>vehiclesTitle}" titleUppercase="false">
+                <u:subSections>
+                    <u:ObjectPageSubSection>
+                        <u:blocks>
+                            <VBox class="sapUiMediumMargin">
+                                <Table
+                                    id="vehiclesTable"
+                                    items="{clienteModel>/_Veiculos}"
+                                    noDataText="{i18n>noVehiclesFound}"
+                                    class="vehicleTable">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <content>
+                                                <Title text="{i18n>vehiclesTableTitle}" />
+                                                <ToolbarSpacer />
+                                                <SearchField width="15rem" placeholder="{i18n>searchVehicles}" search="onFilterVehicles" />
+                                            </content>
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column>
+                                            <Text text="{i18n>licenseLabel}" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>brandLabel}" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>modelLabel}" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Desktop">
+                                            <Text text="{i18n>vehicleTypeLabel}" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem type="Inactive">
+                                            <cells>
+                                                <ObjectIdentifier title="{clienteModel>Matricula}" />
+                                                <Text text="{clienteModel>Marca}" />
+                                                <Text text="{clienteModel>Modelo}" />
+                                                <Text text="{clienteModel>TipoVeiculoDesc}" /> 
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                        </u:blocks>
+                    </u:ObjectPageSubSection>
+                </u:subSections>
+            </u:ObjectPageSection>
+
+            <!-- Seção de Movimentos -->
+            <u:ObjectPageSection title="{i18n>movementsTitle}" titleUppercase="false">
+                <u:subSections>
+                    <u:ObjectPageSubSection>
+                        <u:blocks>
+                            <VBox class="sapUiMediumMargin">
+                                <Table
+                                    id="movementsTable"
+                                    items="{movimentosModel>/}"
+                                    noDataText="{i18n>noMovementsFound}"
+                                    class="movementTable">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <content>
+                                                <Title text="{i18n>movementsTableTitle}" />
+                                                <ToolbarSpacer />
+                                                <SegmentedButton selectedKey="all" selectionChange="onFilterMovements" class="sapUiTinyMarginEnd">
+                                                    <items>
+                                                        <SegmentedButtonItem key="all" text="{i18n>allMovements}" />
+                                                        <SegmentedButtonItem key="active" text="{i18n>activeMovements}" />
+                                                        <SegmentedButtonItem key="completed" text="{i18n>completedMovements}" />
+                                                    </items>
+                                                </SegmentedButton>
+                                                <SearchField width="15rem" placeholder="{i18n>searchMovements}" search="onSearchMovements" />
+                                            </content>
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column>
+                                            <Text text="{i18n>licenseLabel}" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>entryDateLabel}" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>exitDateLabel}" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Desktop">
+                                            <Text text="{i18n>durationLabel}" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Desktop">
+                                            <Text text="{i18n>valueLabel}" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Desktop">
+                                            <Text text="{i18n>statusLabel}" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem type="Inactive">
+                                            <cells>
+                                                <ObjectIdentifier title="{movimentosModel>Matricula}" />
+                                                <Text text="{path: 'movimentosModel>DataEntrada', formatter: '.formatter.formatDateTime'}" />
+                                                <Text text="{path: 'movimentosModel>DataSaida', formatter: '.formatter.formatDateTime'}" />
+                                                <Text text="{path: 'movimentosModel>DuracaoHoras', formatter: '.formatter.formatNumeric'}" />
+                                                <ObjectNumber number="{path: 'movimentosModel>ValorLiquido', formatter: '.formatter.formatNumeric'}" 
+                                                    unit="{movimentosModel>Moeda}" />
+                                                <ObjectStatus
+                                                    text="{path: 'movimentosModel>Status', formatter: '.formatter.formatMovimentoStatus'}"
+                                                    state="{path: 'movimentosModel>Status', formatter: '.formatter.formatMovimentoStatusState'}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                        </u:blocks>
+                    </u:ObjectPageSubSection>
+                </u:subSections>
+            </u:ObjectPageSection>
+        </u:sections>
+    </u:ObjectPageLayout>
+</mvc:View>

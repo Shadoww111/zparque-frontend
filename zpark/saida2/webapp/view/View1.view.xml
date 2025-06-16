@@ -1,0 +1,91 @@
+<mvc:View
+    controllerName="saida2.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page id="page"  class="customBackgroundPage">
+        <content>
+            <FlexBox
+                alignItems="Center"
+                justifyContent="Center"
+                alignContent="Center"
+                height="100%"
+                width="100%"
+                class="saidaContainer fadeIn">
+                
+                <VBox
+                    alignItems="Center"
+                    justifyContent="Center"
+                    width="100%"
+                    class="sapUiMediumMargin">
+                    
+                    <Title 
+                        text="{i18n>saidaPageTitle}" 
+                        titleStyle="H2"
+                        textAlign="Center"
+                        class="saidaTitle sapUiMediumMarginBottom"/>
+                    
+                    <Panel 
+                        width="auto" 
+                        class="saidaPanel gradientPanel slideIn"
+                        backgroundDesign="Transparent">
+                        <f:SimpleForm
+                            editable="true" 
+                            layout="ResponsiveGridLayout"
+                            labelSpanL="12"
+                            labelSpanM="12"
+                            adjustLabelSpan="false"
+                            emptySpanL="0"
+                            emptySpanM="0"
+                            columnsL="1"
+                            columnsM="1">
+                            <f:content>
+                                <VBox  width="100%">
+                                    <Label text="{i18n>matriculaLabel}" required="true" design="Bold"  width="100%"/>
+                                    <Input 
+                                        id="matriculaInput" 
+                                        submit="onRegistrarSaida"
+                                        placeholder="AA00BB"
+                                        class="matriculaInput customInput"
+                                        width="250px"
+                                        maxLength="6"
+                                        change="onMatriculaChange"
+                                        />
+                                </VBox>
+                                
+                                <VBox  width="100%" class="sapUiMediumMarginTop">
+                                    <HBox  width="100%">
+                                        <Button 
+                                            text="{i18n>registrarSaidaButton}" 
+                                            type="Emphasized" 
+                                            press="onRegistrarSaida" 
+                                            icon="sap-icon://journey-arrive"
+                                            class="saidaButton actionButton sapUiTinyMarginEnd"/>
+                                        <Button 
+                                            id="clearButton" 
+                                            text="{i18n>limparButton}" 
+                                            press="onClear" 
+                                            type="Transparent"
+                                            icon="sap-icon://clear-all"
+                                            class="clearButton"/>
+                                    </HBox>
+                                </VBox>
+                            </f:content>
+                        </f:SimpleForm>
+                    </Panel>
+                    
+                    <MessageStrip 
+                        id="messageStrip" 
+                        visible="false" 
+                        class="saidaMessageStrip sapUiMediumMarginTop" 
+                        showIcon="true"/>
+                </VBox>
+            </FlexBox>
+        </content>
+         <footer >
+            <core:Fragment fragmentName="saida2.view.fragments.DisponibilidadeFooter" type="XML" />
+        </footer>
+    </Page>
+</mvc:View>

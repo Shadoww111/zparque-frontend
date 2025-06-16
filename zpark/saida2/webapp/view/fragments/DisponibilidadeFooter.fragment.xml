@@ -1,0 +1,27 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Toolbar class="sapUiTinyPaddingTop sapUiTinyPaddingBottom customFooter">
+        <ToolbarSpacer/>
+        <Text text="Lugares Disponíveis:" class="sapUiSmallMarginEnd availabilityTitle"/>
+        <ObjectStatus 
+            title="Motos" 
+            text="{disponibilidadeModel>/LugaresMotoLivres}" 
+            state="{= ${disponibilidadeModel>/LugaresMotoLivres} > 5 ? 'Success' : (${disponibilidadeModel>/LugaresMotoLivres} > 1 ? 'Warning' : 'Error')}"
+            icon="sap-icon://two-keys"
+            class="sapUiTinyMarginEnd"/>
+        <ObjectStatus 
+            title="Ligeiros" 
+            text="{disponibilidadeModel>/LugaresLigeiroLivres}" 
+            state="{= ${disponibilidadeModel>/LugaresLigeiroLivres} > 10 ? 'Success' : (${disponibilidadeModel>/LugaresLigeiroLivres} > 3 ? 'Warning' : 'Error')}"
+            icon="sap-icon://car-rental"
+            class="sapUiTinyMarginEnd"/>
+        <ObjectStatus 
+            title="Pesados" 
+            text="{disponibilidadeModel>/LugaresPesadoLivres}" 
+            state="{= ${disponibilidadeModel>/LugaresPesadoLivres} > 3 ? 'Success' : (${disponibilidadeModel>/LugaresPesadoLivres} > 1 ? 'Warning' : 'Error')}"
+            icon="sap-icon://shipping-status"
+            class="sapUiTinyMarginEnd"/>
+        <ToolbarSpacer/>
+    </Toolbar>
+</core:FragmentDefinition>

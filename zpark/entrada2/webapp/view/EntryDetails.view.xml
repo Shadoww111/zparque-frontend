@@ -1,0 +1,93 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    controllerName="entrada2.controller.EntryDetails">
+    
+    <Page
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        title="{i18n>entradaDetalhesPageTitle}"
+        class="customBackgroundPage">
+        <content>
+            <VBox alignItems="Center" justifyContent="Center" width="100%" class="fadeIn">
+                <f:Card 
+                    width="600px"
+                    class="entradaDetalhesCard elevatedCard cardEntryAnimation sapUiMediumMargin">
+                    <f:header>
+                        <card:Header 
+                            title="{i18n>registroSucesso}" 
+                            iconSrc="sap-icon://accept"
+                            subtitle="{entryModel>/dataHoraEntrada}"/>
+                    </f:header>
+                    <f:content>
+                        <VBox class="sapUiMediumMargin">
+                            <MessageStrip
+                                text="{i18n>detalhesEntradaSuccess}"
+                                type="Success"
+                                showIcon="true"
+                                class="entradaMessageStrip sapUiMediumMarginBottom"/>
+                                
+                            <form:SimpleForm 
+                                editable="false"
+                                layout="ResponsiveGridLayout" 
+                                class="detailsForm">
+                                <form:content>
+                                    <Label text="{i18n>matriculaDetalhe}" class="clienteLabel"/>
+                                    <ObjectStatus
+                                        text="{entryModel>/matricula}"
+                                        state="Information"
+                                        icon="sap-icon://car-rental"/>
+                                    
+                                    <Label text="{i18n>tipoVeiculoDetalhe}" class="clienteLabel"/>
+                                    <ObjectStatus
+                                        text="{= ${entryModel>/tipoVeiculo} ? ${entryModel>/tipoVeiculo} : ${i18n>naoEspecificado}}"
+                                        state="Information"
+                                        icon="sap-icon://vehicle-repair"/>
+                                    
+                                    <Label text="{i18n>dataHoraEntrada}" class="clienteLabel"/>
+                                    <Text text="{entryModel>/dataEntrada}"/>
+                                    
+                                    <!-- Mostrar informação do cliente -->
+                                    <Label text="{i18n>clienteLabel}" class="clienteLabel"/>
+                                    <ObjectStatus
+                                        text="{entryModel>/cliente}"
+                                        state="{= ${entryModel>/isClienteRegistrado} ? 'Success' : 'None'}"
+                                        icon="{= ${entryModel>/isClienteRegistrado} ? 'sap-icon://customer' : 'sap-icon://person-placeholder'}"/>
+                                    
+                                    <!-- Mostrar nome do cliente apenas se for cliente registrado e tiver nome -->
+                                    <Label text="{i18n>nomeClienteLabel}" visible="{= ${entryModel>/isClienteRegistrado} &amp;&amp; ${entryModel>/nomeCliente} !== ''}" class="clienteLabel"/>
+                                    <Text text="{entryModel>/nomeCliente}" visible="{= ${entryModel>/isClienteRegistrado} &amp;&amp; ${entryModel>/nomeCliente} !== ''}"/>
+                                    
+                                    <!-- Mostrar NIF apenas se for cliente registrado e tiver NIF -->
+                                    <Label text="{i18n>nifLabel}" visible="{= ${entryModel>/isClienteRegistrado} &amp;&amp; ${entryModel>/nif} !== ''}" class="clienteLabel"/>
+                                    <Text text="{entryModel>/nif}" visible="{= ${entryModel>/isClienteRegistrado} &amp;&amp; ${entryModel>/nif} !== ''}"/>
+                                    
+                                    <!-- Mostrar informações do veículo apenas se for cliente registrado e tiver dados do veículo -->
+                                    <Label text="{i18n>veiculoLabel}" visible="{= ${entryModel>/isClienteRegistrado} &amp;&amp; ${entryModel>/veiculo} !== ''}" class="clienteLabel"/>
+                                    <Text text="{entryModel>/veiculo}" visible="{= ${entryModel>/isClienteRegistrado} &amp;&amp; ${entryModel>/veiculo} !== ''}"/>
+                                </form:content>
+                            </form:SimpleForm>
+                            
+                            <HBox  width="100%" class="sapUiMediumMarginTop">
+                                <Button 
+                                    text="{i18n>novaEntradaButton}" 
+                                    type="Emphasized"
+                                    press="onNovaEntrada"
+                                    icon="sap-icon://add"
+                                    class="novaEntradaButton actionButton sapUiMediumMarginEnd"/>
+                            </HBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </VBox>
+        </content>
+     
+        <footer>
+            <core:Fragment fragmentName="entrada2.view.fragments.DisponibilidadeFooter" type="XML" />
+        </footer>
+    </Page>
+</mvc:View>

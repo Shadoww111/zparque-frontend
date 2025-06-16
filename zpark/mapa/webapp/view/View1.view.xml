@@ -1,0 +1,157 @@
+<mvc:View
+    controllerName="mapa.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    height="100%"
+    displayBlock="true"
+>
+    <Page id="page" title="{i18n>title}" showHeader="true" backgroundDesign="Solid">
+        <customHeader>
+            <f:ShellBar
+                title="CS4 Parking Map"
+                secondTitle="Real-time Parking Availability"
+                showNavButton="false"
+                homeIcon="sap-icon://car-rental"
+            >
+                <f:profile>
+                    <Avatar
+                        initials="CS4"
+                        backgroundColor="Accent6"
+                    />
+                </f:profile>
+            </f:ShellBar>
+        </customHeader>
+        <content>
+            <VBox id="contentVBox"  alignItems="Center" justifyContent="Center">
+                <Panel id="statsPanel" headerText="Parking Availability Overview" class="sapUiSmallMargin" width="auto">
+                    <HBox justifyContent="SpaceBetween" wrap="Wrap" class="sapUiSmallMargin">
+                        <VBox alignItems="Center" class="sapUiSmallMarginEnd">
+                            <Title text="Motorcycles" level="H3"/>
+                            <HBox alignItems="Center" class="sapUiTinyMargin">
+                                <ObjectStatus
+                                    title="Available"
+                                    text="{disponibilidadeModel>/LugaresMotoLivres}"
+                                    state="{= ${disponibilidadeModel>/MotoLivresCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/MotoLivresCriticality} === 2 ? 'Warning' : 'Success' }"
+                                    icon="sap-icon://accept"
+                                    class="sapUiSmallMarginEnd"
+                                />
+                                <ObjectStatus
+                                    title="Occupied"
+                                    text="{disponibilidadeModel>/LugaresMotoOcupados}"
+                                    state="{= ${disponibilidadeModel>/MotoOcupadosCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/MotoOcupadosCriticality} === 2 ? 'Warning' : 'Success' }"
+                                    icon="sap-icon://decline"
+                                />
+                            </HBox>
+                        </VBox>
+                        <VBox alignItems="Center" class="sapUiSmallMarginEnd">
+                            <Title text="Cars" level="H3"/>
+                            <HBox alignItems="Center" class="sapUiTinyMargin">
+                                <ObjectStatus
+                                    title="Available"
+                                    text="{disponibilidadeModel>/LugaresLigeiroLivres}"
+                                    state="{= ${disponibilidadeModel>/LigeiroLivresCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/LigeiroLivresCriticality} === 2 ? 'Warning' : 'Success' }"
+                                    icon="sap-icon://accept"
+                                    class="sapUiSmallMarginEnd"
+                                />
+                                <ObjectStatus
+                                    title="Occupied"
+                                    text="{disponibilidadeModel>/LugaresLigeiroOcupados}"
+                                    state="{= ${disponibilidadeModel>/LigeiroOcupadosCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/LigeiroOcupadosCriticality} === 2 ? 'Warning' : 'Success' }"
+                                    icon="sap-icon://decline"
+                                />
+                            </HBox>
+                        </VBox>
+                        <VBox alignItems="Center">
+                            <Title text="Trucks" level="H3"/>
+                            <HBox alignItems="Center" class="sapUiTinyMargin">
+                                <ObjectStatus
+                                    title="Available"
+                                    text="{disponibilidadeModel>/LugaresPesadoLivres}"
+                                    state="{= ${disponibilidadeModel>/PesadoLivresCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/PesadoLivresCriticality} === 2 ? 'Warning' : 'Success' }"
+                                    icon="sap-icon://accept"
+                                    class="sapUiSmallMarginEnd"
+                                />
+                                <ObjectStatus
+                                    title="Occupied"
+                                    text="{disponibilidadeModel>/LugaresPesadoOcupados}"
+                                    state="{= ${disponibilidadeModel>/PesadoOcupadosCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/PesadoOcupadosCriticality} === 2 ? 'Warning' : 'Success' }"
+                                    icon="sap-icon://decline"
+                                />
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                    <ProgressIndicator
+                        percentValue="{= (${disponibilidadeModel>/LugaresMotoOcupados} / ${disponibilidadeModel>/LugaresMotoTotal}) * 100 }"
+                        displayValue="Motorcycles {disponibilidadeModel>/LugaresMotoOcupados}/{disponibilidadeModel>/LugaresMotoTotal}"
+                        showValue="true"
+                        state="{= ${disponibilidadeModel>/MotoOcupadosCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/MotoOcupadosCriticality} === 2 ? 'Warning' : 'Success' }"
+                        class="sapUiSmallMargin"
+                    />
+                    <ProgressIndicator
+                        percentValue="{= (${disponibilidadeModel>/LugaresLigeiroOcupados} / ${disponibilidadeModel>/LugaresLigeiroTotal}) * 100 }"
+                        displayValue="Cars {disponibilidadeModel>/LugaresLigeiroOcupados}/{disponibilidadeModel>/LugaresLigeiroTotal}"
+                        showValue="true"
+                        state="{= ${disponibilidadeModel>/LigeiroOcupadosCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/LigeiroOcupadosCriticality} === 2 ? 'Warning' : 'Success' }"
+                        class="sapUiSmallMargin"
+                    />
+                    <ProgressIndicator
+                        percentValue="{= (${disponibilidadeModel>/LugaresPesadoOcupados} / ${disponibilidadeModel>/LugaresPesadoTotal}) * 100 }"
+                        displayValue="Trucks {disponibilidadeModel>/LugaresPesadoOcupados}/{disponibilidadeModel>/LugaresPesadoTotal}"
+                        showValue="true"
+                        state="{= ${disponibilidadeModel>/PesadoOcupadosCriticality} === 1 ? 'Error' : ${disponibilidadeModel>/PesadoOcupadosCriticality} === 2 ? 'Warning' : 'Success' }"
+                        class="sapUiSmallMargin"
+                    />
+                </Panel>
+
+                <Panel id="mapPanel" headerText="Interactive Parking Map" class="sapUiSmallMargin" width="auto">
+                    <layoutData>
+                        <FlexItemData growFactor="1" />
+                    </layoutData>
+                    <HBox id="parkingMapContainer" class="sapUiMediumMargin" alignItems="Center" justifyContent="Center">
+                        <html:div id="parkingMap" class="parkingMapContainer"></html:div>
+                    </HBox>
+                </Panel>
+
+                <HBox id="legendPanel" class="sapUiSmallMargin" alignItems="Center" justifyContent="Center">
+                    <VBox class="sapUiTinyMarginEnd" alignItems="Center">
+                        <core:Icon src="sap-icon://car-rental" color="#107e3e" size="1.5rem" />
+                        <Text text="Available" />
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd" alignItems="Center">
+                        <core:Icon src="sap-icon://car-rental" color="#e9730c" size="1.5rem" />
+                        <Text text="Limited" />
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd" alignItems="Center">
+                        <core:Icon src="sap-icon://car-rental" color="#b00" size="1.5rem" />
+                        <Text text="Full" />
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd" alignItems="Center">
+                        <core:Icon src="sap-icon://washing-machine" color="#0070f2" size="1.5rem" />
+                        <Text text="Motorcycle" />
+                    </VBox>
+                    <VBox class="sapUiTinyMarginEnd" alignItems="Center">
+                        <core:Icon src="sap-icon://passenger-train" color="#0070f2" size="1.5rem" />
+                        <Text text="Truck" />
+                    </VBox>
+                    <VBox alignItems="Center">
+                        <core:Icon src="sap-icon://charging-station" color="#0070f2" size="1.5rem" />
+                        <Text text="EV Charging" />
+                    </VBox>
+                </HBox>
+
+                <Title text="Last Updated: {disponibilidadeModel>/formattedTimestamp}" level="H4" class="sapUiSmallMargin" />
+                <Button text="Refresh Data" press=".onRefreshData" icon="sap-icon://refresh" class="sapUiSmallMarginBottom" type="Emphasized" />
+            </VBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Text text="CS4 Parking Management System" />
+                <ToolbarSpacer />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

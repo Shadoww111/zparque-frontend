@@ -1,0 +1,132 @@
+{
+    "_version": "1.65.0",
+    "sap.app": {
+        "id": "entrada2",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "Entrada de Veículos",
+        "description": "Aplicação para registrar a entrada de veículos no estacionamento",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.16.5",
+            "toolsId": "f8c603f2-daeb-41d4-a008-4f7c0b98c037"
+        },
+        "dataSources": {
+            "parkingService": {
+                "uri": "/sap/opu/odata4/sap/zui_cs4_parking/srvd/sap/zui_cs4_parking/0001/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "dependencies": {
+            "minUI5Version": "1.130.7",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "entrada2.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "parkingService",
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "disponibilidadeModel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {}
+            },
+            "sharedData": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {}
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "entrada2.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "transition": "slide",
+                "async": true
+            },
+            "routes": [
+                {
+                    "name": "RouteView1",
+                    "pattern": "",
+                    "target": ["TargetView1"]
+                },
+                {
+                    "name": "RouteEntryDetails",
+                    "pattern": "entrada/{matricula}/{registrado}/:idEntrada:",
+                    "target": ["TargetEntryDetails"]
+                }
+            ],
+            "targets": {
+                "TargetView1": {
+                    "viewType": "XML",
+                    "viewId": "View1",
+                    "viewName": "View1"
+                },
+                "TargetEntryDetails": {
+                    "viewType": "XML",
+                    "viewId": "entryDetails",
+                    "viewName": "EntryDetails"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "entrada2.view.App",
+            "type": "XML",
+            "id": "App"
+        }
+    }
+}

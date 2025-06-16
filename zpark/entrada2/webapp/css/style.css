@@ -1,0 +1,218 @@
+/* Estilos gerais para páginas */
+.customBackgroundPage {
+    background-image: url('../img/imagem.png');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+}
+
+/* Estilo para o painel de entrada de veículo */
+.gradientPanel {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    width: 500px;
+    max-width: 90%;
+}
+
+/* Animação de fade in para elementos */
+.fadeIn {
+    animation: fadeInAnimation 0.5s ease-in;
+}
+
+@keyframes fadeInAnimation {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Estilo para inputs customizados */
+.customInput {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.customInput:focus {
+    box-shadow: 0 1px 5px rgba(8, 84, 160, 0.5);
+}
+
+/* Estilo para combo box */
+.customComboBox {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+/* Estilo para botões de ação */
+.actionButton {
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+    transform: translateY(-1px);
+}
+
+
+/* Estilo para botão de limpar */
+.clearButton {
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.clearButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+
+}
+
+/* Estilo para card elevado na página de detalhes */
+.elevatedCard {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.elevatedCard:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
+}
+
+/* Estilo para formulário de detalhes */
+.detailsForm {
+    background-color: rgba(250, 250, 250, 0.5);
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .gradientPanel {
+        width: 95%;
+        padding: 10px;
+    }
+    
+    .elevatedCard {
+        width: 95% !important;
+    }
+}
+
+/* Estilo para footer com informações de disponibilidade */
+.footerBackground {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    border-top: 1px solid rgba(204, 204, 204, 0.5);
+}
+
+/* Cores para indicadores de disponibilidade */
+.availabilityHigh {
+    color: #107e3e;
+}
+
+.availabilityMedium {
+    color: #e9730c;
+}
+
+.availabilityLow {
+    color: #bb0000;
+}
+
+/* Estilos para os indicadores de disponibilidade */
+
+/* Footer de disponibilidade com efeito de gradiente */
+.disponibilidadeFooter {
+    background: linear-gradient(135deg, rgba(0, 40, 80, 0.95) 0%, rgba(0, 70, 130, 0.9) 100%);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos base para os indicadores de disponibilidade */
+.disponibilidadeFooter .sapMObjStatus {
+    padding: 6px 12px;
+    margin: 0 6px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Disponibilidade alta (verde) */
+.disponibilidadeAlta {
+    background-color: rgba(45, 176, 0, 0.25);
+    border: 1px solid rgba(45, 176, 0, 0.5);
+}
+
+.disponibilidadeAlta .sapMObjStatusTitle,
+.disponibilidadeAlta .sapMObjStatusText {
+    color: #2EB300 !important;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.disponibilidadeAlta:hover {
+    background-color: rgba(45, 176, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Disponibilidade média (amarelo) */
+.disponibilidadeMedia {
+    background-color: rgba(224, 170, 0, 0.25);
+    border: 1px solid rgba(224, 170, 0, 0.5);
+}
+
+.disponibilidadeMedia .sapMObjStatusTitle,
+.disponibilidadeMedia .sapMObjStatusText {
+    color: #E0AA00 !important;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.disponibilidadeMedia:hover {
+    background-color: rgba(224, 170, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Disponibilidade baixa (vermelho) */
+.disponibilidadeBaixa {
+    background-color: rgba(224, 0, 0, 0.25);
+    border: 1px solid rgba(224, 0, 0, 0.5);
+    /* Efeito pulsante para disponibilidade crítica */
+    animation: pulseAnimation 1.5s infinite;
+}
+
+.disponibilidadeBaixa .sapMObjStatusTitle,
+.disponibilidadeBaixa .sapMObjStatusText {
+    color: #FF5E5E !important;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.disponibilidadeBaixa:hover {
+    background-color: rgba(224, 0, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+    animation: none; /* Para quando houver hover */
+}
+
+/* Animação pulsante para alertar sobre disponibilidade baixa */
+@keyframes pulseAnimation {
+    0% {
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+    }
+}
+
+/* Estilos específicos para o texto de disponibilidade */
+.availabilityTitle {
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
